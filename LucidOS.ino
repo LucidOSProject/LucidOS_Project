@@ -43,7 +43,7 @@
     while(true)
     {
      TV.println(5, 45, MenuChoice); 
-     TV.println(5, 5, "Applications: ");
+     TV.println(5, 5, "Menu: ");
      TV.println(5, 15, "1. Apps");
      TV.println(5, 25, "2. Recommended Hardware");
 
