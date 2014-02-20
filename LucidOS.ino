@@ -15,6 +15,7 @@
   void program();
   void Box();
   void LED();
+  void CookieClicker();
   
   int buttonState = 0;
   int buttonState2 = 0;
@@ -86,8 +87,9 @@
     TV.println(5, 5, "Available Applications: ");
     TV.println(5, 15, "1. 3D Box");
     TV.println(5, 25, "2. LED");
-    TV.println(5, 35, "3. Back");
-    TV.println(5, 55, MenuChoice);
+    TV.println(5, 35, "3. Cookie Clicker");
+    TV.println(5, 45, "4. Back");
+    TV.println(5, 65, MenuChoice);
 
      buttonState = digitalRead(2);
      if (buttonState == HIGH)
@@ -104,8 +106,13 @@
       }
       else if(MenuChoice == 3)
       {
-       MenuChoice = 1;
+       MenuChoice++;
       delay(500); 
+      }
+      else if (MenuChoice == 4)
+      {
+       MenuChoice = 1;
+       delay(500); 
       }
      }
       
@@ -125,6 +132,12 @@
         LED();
       }
       else if(MenuChoice == 3)
+      {
+        delay(500);
+        TV.clear_screen();
+        CookieClicker(); 
+      }
+      else if (MenuChoice == 4)
       {
         delay(500);
         TV.clear_screen();
@@ -199,6 +212,7 @@
   {
     MenuChoice = 1;
     TV.clear_screen();
+    delay(500);
     while(true)
     {
     TV.println(5, 5, "Hold BUTTON1 To Turn On LED");
@@ -224,6 +238,48 @@
        digitalWrite(12, LOW); 
     }
     }
+  }
+  
+  void CookieClicker()
+  {
+     MenuChoice = 1;
+     int Cookies = 0;
+     TV.clear_screen();
+     TV.draw_circle(45, 20, 15, 1);
+     TV.set_pixel(45, 20, 1);
+     TV.set_pixel(42, 30, 1);
+     TV.set_pixel(46, 8, 1);
+     TV.set_pixel(36, 20, 1);
+     TV.set_pixel(50, 30, 1);
+     TV.set_pixel(46, 35, 1);
+     TV.set_pixel(53, 25, 1);
+     TV.set_pixel(48, 15, 1);
+     TV.println(5, 55, "1. Back");
+    while (true)
+    {      
+     TV.println(5, 10, Cookies);
+     buttonState = digitalRead(2);
+     if (buttonState == HIGH)
+     {
+        Cookies++; 
+        delay(500);
+     }
+     else
+     {
+       
+     }   
+     buttonState2 = digitalRead(3);
+     
+     if (buttonState2 == HIGH)
+    { 
+     if  (MenuChoice == 1)
+     {
+      delay(500);
+      TV.clear_screen();
+      Apps(); 
+     }
+    }
+   }
   }
 
 
