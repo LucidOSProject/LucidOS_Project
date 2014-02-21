@@ -361,6 +361,7 @@
   
   void CookieClicker()
   {
+     int btn_press = 0;
      MenuChoice = 1;
      int Cookies = 0;
      TV.clear_screen();
@@ -380,12 +381,19 @@
      buttonState = digitalRead(2);
      if (buttonState == HIGH)
      {
+       if(btn_press == 0)
+       {
+        btn_press = 1; 
         Cookies++; 
-        delay(500);
+       }
+       else
+       {
+       }
      }
      else
      {
-       
+       btn_press = 0;
+       Cookies = Cookies;
      }   
      buttonState2 = digitalRead(3);
      
