@@ -34,7 +34,126 @@
     
   void loop() 
   { 
+    for (int a = 10; a < 15; a++)
+    {
+      for (int b = 10; b < 51; b++)
+      {
+       TV.set_pixel(a, b, 1); 
+      }
+    }
+    for (int c = 10; c < 95; c++)
+    {
+       for (int d = 51; d < 56; d++)
+      {
+       TV.set_pixel(c, d, 1);
+      } 
+    }
+    for (int e = 25; e < 28; e++)
+    {
+       for(int f = 10; f < 40; f++)
+      {
+         TV.set_pixel(e, f, 1);
+      } 
+    }
+    for (int g = 27; g < 34; g++)
+    {
+       for(int h = 40; h < 43; h++)
+      {
+         TV.set_pixel(g, h, 1);
+      } 
+    }
+    for (int i = 32; i < 35; i++)
+    {
+       for(int j = 10; j < 40; j++)
+      {
+         TV.set_pixel(i, j, 1);
+      } 
+    }
+    for (int k = 40; k < 43; k++)
+    {
+       for (int l = 13; l < 39; l++)
+      {
+         TV.set_pixel(k, l, 1);
+      } 
+    }
+    for (int m = 41; m < 51; m++)
+    {
+       for (int n = 10; n < 13; n++)
+      {
+         TV.set_pixel(m, n, 1);
+      } 
+    }
+    for (int o = 41; o < 51; o++)
+    {
+       for (int p = 39; p < 42; p++)
+      {
+         TV.set_pixel(o, p, 1);
+      } 
+    }
+    for (int q = 61; q < 64; q++)
+    {
+       for (int r = 10; r < 41; r++)
+       {
+          TV.set_pixel(q, r, 1); 
+       }
+    }
+    for (int s = 54; s < 71; s++)
+    {
+       for (int t = 10; t < 13; t++)
+      {
+         TV.set_pixel(s, t, 1);
+      } 
+    }
+    for (int u = 54; u < 71; u++)
+    {
+       for (int v = 39; v < 42; v++)
+      {
+         TV.set_pixel(u, v, 1);
+      } 
+    }
+    for (int w = 74; w < 84; w++)
+    {
+       for (int x = 10; x < 13; x++)
+      {
+         TV.set_pixel(w, x, 1);
+      } 
+    }
+    for (int y = 74; y < 84; y++)
+    {
+       for (int z = 39; z < 42; z++)
+      {
+         TV.set_pixel(y, z, 1);
+      } 
+    }
+    for (int aa = 74; aa < 76; aa++)
+    {
+      for (int ab = 13; ab < 42; ab++)
+      {
+         TV.set_pixel(aa, ab, 1); 
+      }
+    }
+    for (int bb = 90; bb < 93; bb++)
+    {
+       for (int bc = 21; bc < 32; bc++)
+      {
+         TV.set_pixel(bb,bc, 1);
+         TV.draw_line(84, 12, 91, 21, 1);
+         TV.draw_line(84, 11, 92, 21, 1);
+         TV.draw_line(84, 13, 92, 21, 1);
+         TV.draw_line(83, 40, 90, 32, 1);
+         TV.draw_line(83, 41, 91, 32, 1);
+      } 
+    }
+    TV.println(11, 60, "Operating System v.01");
+    TV.println(20, 80, "Button 2 to Start");
+    
+    buttonState2 = digitalRead(3);
+    if (buttonState2 == HIGH)
+    {
+     delay(500);
+     TV.clear_screen();
      program();
+    }
   }
   
   void program()
