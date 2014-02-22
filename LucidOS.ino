@@ -1,6 +1,12 @@
+/* LucidOS, a Arduino (uno rev3) operating system. */
+
+/* NOTES:
+   This operating system only supports simple applications. It is still a work in progress. */
+
 //My youtube channel for hardware + software updates. http://www.youtube.com/playlist?list=PLwBbXoTme4Hra0Lc5wSkfXOc5po9NYJ1R&feature=mh_lolz
 //Twitter - https://twitter.com/LucidOS_Project
 
+// Include libraries
 #include <font4x6.h>
 #include <font6x8.h>
 #include <font8x8.h>
@@ -10,6 +16,7 @@
 #include <avr/pgmspace.h>
 #include <arduino.h>
 
+  // Init vars. and other things used.
   TVout TV;
   void Apps();
   void recHard();
@@ -28,6 +35,7 @@
   void setup()  
   {
     Serial.begin(9600);
+    // Note that BUTTON1 is pin 2, and BUTTON2 is pin 3.
     pinMode(2, INPUT);
     pinMode(3, INPUT);
     pinMode(12, OUTPUT);
@@ -37,7 +45,8 @@
   }
     
   void loop() 
-  { 
+  {
+    // This main loop part is printing the Lucid OS logo/name.
     for (int a = 10; a < 15; a++)
     {
       for (int b = 10; b < 51; b++)
@@ -148,6 +157,7 @@
          TV.draw_line(83, 41, 91, 32, 1);
       } 
     }
+	// Now starting main OS.
     TV.println(11, 60, "Operating System v.01");
     TV.println(20, 80, "Button 2 to Start");
     
@@ -163,7 +173,7 @@
   void program()
   {
     MenuChoice = 1;
-    
+    // Main menu, to enter application menu, or the hardware section.
     while(true)
     {
      TV.println(5, 45, MenuChoice); 
@@ -171,6 +181,7 @@
      TV.println(5, 15, "1. Apps");
      TV.println(5, 25, "2. Recommended Hardware");
 
+      // The menus (prompts that use buttons) in this OS will use this pattern a lot.
       buttonState = digitalRead(2);
       if (buttonState == HIGH)
       {
@@ -202,6 +213,7 @@
   
   void Apps()
   {
+    // This application is the prompt if the user entered 1 in the program(); function.
     MenuChoice = 1;
     TV.clear_screen();
     delay(500);
@@ -213,7 +225,7 @@
     TV.println(5, 35, "3. Cookie Clicker");
     TV.println(5, 45, "4. Back");
     TV.println(5, 65, MenuChoice);
-
+     // Again, same pattern.
      buttonState = digitalRead(2);
      if (buttonState == HIGH)
      {
@@ -272,6 +284,7 @@
   
   void recHard()
   {
+    // Hardware section. (prints hardware specs)
     MenuChoice = 1;
     TV.clear_screen(); 
     TV.println(5, 5, "Recommended Hardware:");
@@ -296,6 +309,7 @@
   }
   void Box()
   {
+    // Prints a box.
     MenuChoice = 1;
     TV.clear_screen();
     TV.draw_line(15, 15, 15, 40, 1);
@@ -333,6 +347,7 @@
   
   void LED()
   {
+    // Controls a led on pin 12.
     MenuChoice = 1;
     TV.clear_screen();
     delay(500);
@@ -365,6 +380,8 @@
   
   void CookieClicker()
   {
+     // Cookie clicker, a game where you will click button1 and get a cookie.
+     // (google it, it is a real game)
      int btn_press = 0;
      MenuChoice = 1;
      int Cookies = 0;
@@ -412,5 +429,4 @@
     }
    }
   }
-
 
