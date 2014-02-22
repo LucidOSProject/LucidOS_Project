@@ -1,4 +1,5 @@
 //My youtube channel for hardware + software updates. http://www.youtube.com/playlist?list=PLwBbXoTme4Hra0Lc5wSkfXOc5po9NYJ1R&feature=mh_lolz
+//Twitter - https://twitter.com/LucidOS_Project
 
 #include <font4x6.h>
 #include <font6x8.h>
