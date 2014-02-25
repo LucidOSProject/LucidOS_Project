@@ -1,5 +1,10 @@
-//My youtube channel for hardware + software updates. http://www.youtube.com/playlist?list=PLwBbXoTme4Hra0Lc5wSkfXOc5po9NYJ1R&feature=mh_lolz
-//Twitter - https://twitter.com/LucidOS_Project
+/*
+Lucid OS - Developed by Blake Sekelsky
+Frequent updates being made on Twitter @LucidOS_Project and on GitHub and Youtube.
+GitHub - https://github.com/LucidOSProject/LucidOS_Project/blob/master/LucidOS.ino
+Youtube - http://www.youtube.com/playlist?list=PLwBbXoTme4Hra0Lc5wSkfXOc5po9NYJ1R
+Twitter - https://twitter.com/LucidOS_Project
+*/ 
 
 #include <font4x6.h>
 #include <font6x8.h>
@@ -19,11 +24,13 @@
   void Box();
   void LED();
   void CookieClicker();
+  void Stopwatch();
+  void LastApp();
   
   int buttonState = 0;
   int buttonState2 = 0;
   int MenuChoice = 1;
-
+  String recentApp;
   
   void setup()  
   {
@@ -34,9 +41,10 @@
     TV.select_font(font4x6);
     TV.clear_screen();
   }
-    
+  //Draws the logo and splash screen
   void loop() 
   { 
+    //Draws the L
     for (int a = 10; a < 15; a++)
     {
       for (int b = 10; b < 51; b++)
@@ -51,6 +59,7 @@
        TV.set_pixel(c, d, 1);
       } 
     }
+    //Draws the U
     for (int e = 25; e < 28; e++)
     {
        for(int f = 10; f < 40; f++)
@@ -72,6 +81,7 @@
          TV.set_pixel(i, j, 1);
       } 
     }
+    //Draws the C
     for (int k = 40; k < 43; k++)
     {
        for (int l = 13; l < 39; l++)
@@ -93,6 +103,7 @@
          TV.set_pixel(o, p, 1);
       } 
     }
+    //Draws the I
     for (int q = 61; q < 64; q++)
     {
        for (int r = 10; r < 41; r++)
@@ -114,6 +125,7 @@
          TV.set_pixel(u, v, 1);
       } 
     }
+    //Draws the D
     for (int w = 74; w < 84; w++)
     {
        for (int x = 10; x < 13; x++)
@@ -149,7 +161,7 @@
     }
     TV.println(11, 60, "Operating System v.01");
     TV.println(20, 80, "Button 2 to Start");
-    
+
     buttonState2 = digitalRead(3);
     if (buttonState2 == HIGH)
     {
@@ -158,13 +170,13 @@
      program();
     }
   }
-  
+  //Main Menu Function
   void program()
   {
     MenuChoice = 1;
     
     while(true)
-    {
+    { 
      TV.println(5, 45, MenuChoice); 
      TV.println(5, 5, "Menu: ");
      TV.println(5, 15, "1. Apps");
@@ -198,7 +210,7 @@
       } 
     }
   }
-  
+  //Shows thw Applications that are available
   void Apps()
   {
     MenuChoice = 1;
@@ -210,8 +222,10 @@
     TV.println(5, 15, "1. 3D Box");
     TV.println(5, 25, "2. LED");
     TV.println(5, 35, "3. Cookie Clicker");
-    TV.println(5, 45, "4. Back");
-    TV.println(5, 65, MenuChoice);
+    TV.println(5, 45, "4. Stopwatch");
+    TV.println(5, 55, "5. Last App Used");
+    TV.println(5, 65, "6. Back");
+    TV.println(5, 75, MenuChoice);
 
      buttonState = digitalRead(2);
      if (buttonState == HIGH)
@@ -232,6 +246,16 @@
       delay(500); 
       }
       else if (MenuChoice == 4)
+      {
+       MenuChoice++;
+       delay(500); 
+      }
+      else if (MenuChoice == 5)
+      {
+       MenuChoice++;
+       delay(500); 
+      }
+      else if (MenuChoice == 6)
       {
        MenuChoice = 1;
        delay(500); 
@@ -261,14 +285,26 @@
       }
       else if (MenuChoice == 4)
       {
-        delay(500);
-        TV.clear_screen();
-        program(); 
+       delay(500);
+       TV.clear_screen();
+       Stopwatch(); 
+      }
+      else if (MenuChoice == 5)
+      {
+       delay(500);
+       TV.clear_screen();
+       LastApp(); 
+      }
+      else if (MenuChoice == 6)
+      {
+       delay(500);
+       TV.clear_screen();
+       program(); 
       }
      } 
     }
    }
-  
+  //Shows Recommended Hardware
   void recHard()
   {
     MenuChoice = 1;
@@ -328,6 +364,7 @@
       }
      }
     }
+    recentApp = "3DBox";
   }
   
   void LED()
@@ -360,6 +397,7 @@
        digitalWrite(12, LOW); 
     }
     }
+    recentApp = "LED";
   }
   
   void CookieClicker()
@@ -410,6 +448,89 @@
      }
     }
    }
+   recentApp = "CookieClicker";
   }
-
-
+  void Stopwatch()
+  {
+    int ms = 0;
+    int s = 0;
+    int m = 0;
+    int h = 0;
+    int d = 0;
+    
+    while(true)
+    {
+    TV.println(5, 5, "Button 1 To Start, Button 2 to quit");
+    buttonState = digitalRead(2);
+    buttonState2 = digitalRead(3);
+    if (buttonState == HIGH)
+    {
+     break; 
+    }
+    else
+    {
+      
+    }
+    if (buttonState2 == HIGH)
+    {
+     TV.clear_screen();
+     Apps();
+     delay(500); 
+    }
+    else
+    {
+      
+    }
+    }
+    
+    while(true)
+     {
+     ms++;
+     if (ms == 1000)
+    {
+     s++;
+     if (s == 60)
+     {
+      m++;
+     if (m == 60)
+     {
+      h++;
+      if (h == 24)
+      {
+       d++;
+       if (d == 1000)
+       {
+         TV.clear_screen();
+         Apps();
+         delay(500);
+       }  
+      }
+      } 
+      }
+      } 
+     }
+     TV.println(5, 15, "Days:");
+     TV.println(20, 15, d);
+     TV.println(5, 25, "Hours:");
+     TV.println(20, 25, h);
+     TV.println(5, 35, "Minutes:");
+     TV.println(20, 35, m);
+     TV.println(5, 45, "Seconds:");
+     TV.println(20, 45, s);
+     TV.println(5, 55, "Milliseconds:");
+     TV.println(20, 55, ms);
+     delay(1);
+     recentApp = "Stopwatch";
+  }
+  void LastApp()
+  {
+    char lastApp[20];
+    recentApp.toCharArray(lastApp, 20);
+    for (int a = 0; a < 20; a++)
+    {
+      for (int b = 5; b < a; b++)
+      {
+        TV.print_char(5, b, lastApp[a]);
+      }
+    }
+  }
