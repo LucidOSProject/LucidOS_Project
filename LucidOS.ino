@@ -24,17 +24,18 @@ Twitter - https://twitter.com/LucidOS_Project
   void Box();
   void LED();
   void CookieClicker();
-  void Stopwatch();
-  void LastApp();
   
   int buttonState = 0;
   int buttonState2 = 0;
   int MenuChoice = 1;
   String recentApp;
+  int buttonDown = 0;
   
   void setup()  
   {
+    //Button1
     pinMode(2, INPUT);
+    //Button2
     pinMode(3, INPUT);
     pinMode(12, OUTPUT);
     TV.begin(NTSC, 126, 96);
@@ -185,16 +186,25 @@ Twitter - https://twitter.com/LucidOS_Project
       buttonState = digitalRead(2);
       if (buttonState == HIGH)
       {
+        if (buttonDown == 0)
+        {
         if (MenuChoice == 1)
         {
           MenuChoice++;
           delay(500);
+          buttonDown++;
         }
         else if (MenuChoice == 2)
         {
           MenuChoice--;
           delay(500);
+          buttonDown++;
         }
+        }
+      }
+      if (buttonState == LOW)
+      {
+        buttonDown = 0;
       }
       buttonState2 = digitalRead(3);
       if (buttonState2 == HIGH)
@@ -222,46 +232,49 @@ Twitter - https://twitter.com/LucidOS_Project
     TV.println(5, 15, "1. 3D Box");
     TV.println(5, 25, "2. LED");
     TV.println(5, 35, "3. Cookie Clicker");
-    TV.println(5, 45, "4. Stopwatch");
-    TV.println(5, 55, "5. Last App Used");
-    TV.println(5, 65, "6. Back");
+    TV.println(5, 65, "4. Back");
     TV.println(5, 75, MenuChoice);
-
+    
+    
+    
+    //This is for choice selection on Applications
      buttonState = digitalRead(2);
      if (buttonState == HIGH)
      {
+      if (buttonDown == 0)
+      {
       if (MenuChoice == 1)
       {
-       MenuChoice++; 
-       delay(500);
+         MenuChoice++; 
+         delay(500);
+         buttonDown++;
       }
       else if(MenuChoice == 2)
       {
        MenuChoice++; 
        delay(500);
+       buttonDown++;
       }
       else if(MenuChoice == 3)
       {
        MenuChoice++;
-      delay(500); 
+       delay(500); 
+       buttonDown++;
       }
       else if (MenuChoice == 4)
       {
-       MenuChoice++;
-       delay(500); 
-      }
-      else if (MenuChoice == 5)
-      {
-       MenuChoice++;
-       delay(500); 
-      }
-      else if (MenuChoice == 6)
-      {
        MenuChoice = 1;
        delay(500); 
-      }
+       buttonDown++;
      }
-      
+     }
+     }
+     if (buttonState == LOW)
+     {
+      buttonDown = 0; 
+     }
+    
+    //Determines which Application opens  
      buttonState2 = digitalRead(3);
     if (buttonState2 == HIGH)
     {
@@ -287,23 +300,11 @@ Twitter - https://twitter.com/LucidOS_Project
       {
        delay(500);
        TV.clear_screen();
-       Stopwatch(); 
-      }
-      else if (MenuChoice == 5)
-      {
-       delay(500);
-       TV.clear_screen();
-       LastApp(); 
-      }
-      else if (MenuChoice == 6)
-      {
-       delay(500);
-       TV.clear_screen();
        program(); 
       }
      } 
     }
-   }
+  }
   //Shows Recommended Hardware
   void recHard()
   {
@@ -329,6 +330,8 @@ Twitter - https://twitter.com/LucidOS_Project
       }
     }
   }
+  
+  //3D Box Program
   void Box()
   {
     MenuChoice = 1;
@@ -367,6 +370,7 @@ Twitter - https://twitter.com/LucidOS_Project
     recentApp = "3DBox";
   }
   
+  //Turn LED On and Off
   void LED()
   {
     MenuChoice = 1;
@@ -400,6 +404,7 @@ Twitter - https://twitter.com/LucidOS_Project
     recentApp = "LED";
   }
   
+  //Cookie Clicker
   void CookieClicker()
   {
      int btn_press = 0;
@@ -449,88 +454,4 @@ Twitter - https://twitter.com/LucidOS_Project
     }
    }
    recentApp = "CookieClicker";
-  }
-  void Stopwatch()
-  {
-    int ms = 0;
-    int s = 0;
-    int m = 0;
-    int h = 0;
-    int d = 0;
-    
-    while(true)
-    {
-    TV.println(5, 5, "Button 1 To Start, Button 2 to quit");
-    buttonState = digitalRead(2);
-    buttonState2 = digitalRead(3);
-    if (buttonState == HIGH)
-    {
-     break; 
-    }
-    else
-    {
-      
-    }
-    if (buttonState2 == HIGH)
-    {
-     TV.clear_screen();
-     Apps();
-     delay(500); 
-    }
-    else
-    {
-      
-    }
-    }
-    
-    while(true)
-     {
-     ms++;
-     if (ms == 1000)
-    {
-     s++;
-     if (s == 60)
-     {
-      m++;
-     if (m == 60)
-     {
-      h++;
-      if (h == 24)
-      {
-       d++;
-       if (d == 1000)
-       {
-         TV.clear_screen();
-         Apps();
-         delay(500);
-       }  
-      }
-      } 
-      }
-      } 
-     }
-     TV.println(5, 15, "Days:");
-     TV.println(20, 15, d);
-     TV.println(5, 25, "Hours:");
-     TV.println(20, 25, h);
-     TV.println(5, 35, "Minutes:");
-     TV.println(20, 35, m);
-     TV.println(5, 45, "Seconds:");
-     TV.println(20, 45, s);
-     TV.println(5, 55, "Milliseconds:");
-     TV.println(20, 55, ms);
-     delay(1);
-     recentApp = "Stopwatch";
-  }
-  void LastApp()
-  {
-    char lastApp[20];
-    recentApp.toCharArray(lastApp, 20);
-    for (int a = 0; a < 20; a++)
-    {
-      for (int b = 5; b < a; b++)
-      {
-        TV.print_char(5, b, lastApp[a]);
-      }
-    }
   }
